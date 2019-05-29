@@ -5,6 +5,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <string.h>
+#include "md5.h"
 #define MSGSIZE 21
 #define HASHSIZE 33
 
