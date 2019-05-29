@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
                 pause();
                 if (boolean == 1)
                 {
-                    printf("the hashed string: %s\n", hashed);
+                    printf("encrypted by process %d: %s\n", getpid() ,hashed);
                     kill(pid, SIGKILL);
                 }
                 else
@@ -74,10 +74,10 @@ int main(int argc, char *argv[])
     else
     {
         read(parentToChild[0], hashBuf, MSGSIZE);
-        getHash = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa";
+        //getHash = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa";
 
-        //getHash=md5(hashBuf);
-        printf("the massage from my father: %s\n", hashBuf);
+        getHash=md5(hashBuf);
+        printf("plain text: %s\n", hashBuf);
         write(childToParent[1], getHash, HASHSIZE);
         pid_t parentPid = getppid();
         sleep(1);
