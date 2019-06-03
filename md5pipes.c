@@ -21,7 +21,7 @@ int isHashed(char *str)
     return -1;
 }
 
-void sigHash()
+void sigHash(int sig)
 {
     signal(SIGINT, sigHash);
     boolean = isHashed(strSig);
@@ -74,11 +74,8 @@ int main(int argc, char *argv[])
     else
     {
         read(parentToChild[0], hashBuf, MSGSIZE);
-        //getHash = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa";
-
-        getHash=md5(hashBuf);
-        printf("plain text: %s\n", hashBuf);
-        write(childToParent[1], getHash, HASHSIZE);
+        printf("plain text: %s", hashBuf);
+        write(childToParent[1], md5(hashBuf).c_str(), HASHSIZE);
         pid_t parentPid = getppid();
         sleep(1);
         kill(parentPid, SIGINT);
